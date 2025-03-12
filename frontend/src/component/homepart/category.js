@@ -21,9 +21,7 @@ export default function Category() {
 
   useEffect(() => {
     function getAllcat() {
-        axios.get(`http://localhost:8000/api/v1/product/allcat`).then((data) => {
-         console.log(data.data);
-         
+        axios.get(`http://localhost:8000/api/v1/product/allcat`).then((data) => {         
          setCat(data.data)
         })
     }

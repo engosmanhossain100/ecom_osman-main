@@ -1,43 +1,40 @@
-// 'use client'
+'use client'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { RxCross2 } from "react-icons/rx";
 
-// async function getData() {
-//     let data = await fetch('http://localhost:8000/api/v1/product/allcart')
-//     .then((res)=>
-//     res.json()
-//     )
+async function getData() {
+    let data = await fetch('http://localhost:8000/api/v1/product/allcart')
+        .then((res) => res.json())
 
-//     return data;
-//   }
+    return data;
+}
+
 function Cartleft() {
-
-    const [count, setCount] = useState(0)
     const [cartData, setCartData] = useState([])
 
-    const handleMinus = () => {
-        setCount(count - 1)
-        if (count == 0) {
-            setCount(0)
-        }
+    const handleMinus = (index) => {
+        setCartData(prevCartData => {
+            const newCartData = [...prevCartData]
+            if (newCartData[index].quantity > 1) {
+                newCartData[index].quantity -= 1
+            }
+            return newCartData
+        })
     }
 
-    const handlePlas = () => {
-        setCount(count + 1)
+    const handlePlus = (index) => {
+        setCartData(prevCartData => {
+            const newCartData = [...prevCartData]
+            newCartData[index].quantity += 1
+            return newCartData
+        })
     }
 
     useEffect(() => {
-        function allcart() {
-
-            const data = fetch('http://localhost:8000/api/v1/product/allcart')
-                .then((res) => {
-                    res.json().then((data) => {
-                        setCartData(data)
-                    })
-                }
-
-                )
+        async function allcart() {
+            const data = await getData()
+            setCartData(data)
         }
         allcart()
     }, [])
@@ -51,22 +48,20 @@ function Cartleft() {
             {
                 cartData.map((item, i) => (
                     <div className='cart-items' key={i}>
-
                         <div className='select'>
                             <input type='checkbox' id='select' />
                         </div>
-
                         <div className='details'>
                             <div className='cart-imgs'>
-                                <Image src={`http://localhost:8000${item.productId.image[0]}`} width={130} height={130} alt='cart-img' />
+                                <img src={`http://localhost:8000${item.productId.image[0]}`} width={130} height={130} alt='cart-img' />
                             </div>
                             <div className='item-name-price'>
                                 <h3>{item.productId.name}</h3>
                                 <p>{item.discount}</p>
                                 <div className='count'>
-                                    <div className='minus' onClick={handleMinus}>-</div>
-                                    <div className='numbers'>{count}</div>
-                                    <div className='plass' onClick={handlePlas}>+</div>
+                                    <div className='minus' onClick={() => handleMinus(i)}>-</div>
+                                    <div className='numbers'>{item.quantity}</div>
+                                    <div className='plass' onClick={() => handlePlus(i)}>+</div>
                                 </div>
                             </div>
                         </div>

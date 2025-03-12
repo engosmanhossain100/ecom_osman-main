@@ -31,8 +31,8 @@ useEffect(()=>{
     <div>
       <Container>
         
-{/*         
-        <HomeTopBar /> */}
+        
+        <HomeTopBar />
         {/* <Hero  /> */}
         {/* <Category /> */}
         {/* <NewArraivals /> */}

@@ -34,9 +34,9 @@ function HomeTopBar() {
                     </div>
                 </div>
             </div>
-            {/* <div className='mt-8 mb-16'>
+            <div className='mt-8 mb-16'>
                 <HomeMenuBar />
-            </div> */}
+            </div>
         </div>
     )
 }
