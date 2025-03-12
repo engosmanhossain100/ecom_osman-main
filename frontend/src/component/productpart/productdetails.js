@@ -92,7 +92,7 @@ function Productdetails({data}) {
 
                           data[0].image.map(item=>(
                             <div>
-                            <Image src={`http://localhost:8000${item}`} width={750} height={500} alt="product-img"/>
+                            <img src={`http://localhost:8000${item}`} width={750} height={500} alt="product-img"/>
                           </div>
                           ))
                           
@@ -112,7 +112,7 @@ function Productdetails({data}) {
                           {
                           data[0].image.map(item=>(
                             <div>
-                            <Image src={`http://localhost:8000${item}`} width={150} height={150} alt="product-img"/>
+                            <img src={`http://localhost:8000${item}`} width={150} height={150} alt="product-img"/>
                           </div>
                           ))
                         }

@@ -20,7 +20,6 @@ useEffect(()=>{
   function getData (){
     axios.get("http://localhost:8000/api/v1/product/flashsale").then((data)=>{
       setTime(data.data.time)
-      console.log(data)
     })
   }
   getData()
@@ -32,8 +31,8 @@ useEffect(()=>{
     <div>
       <Container>
         
-        
-        <HomeTopBar />
+{/*         
+        <HomeTopBar /> */}
         {/* <Hero  /> */}
         {/* <Category /> */}
         {/* <NewArraivals /> */}

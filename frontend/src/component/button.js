@@ -16,7 +16,8 @@ const Button = ({item}) => {
             body: JSON.stringify({
                 productId: id,
                 userId: "673b9a729b7650570f6feab7",
-            quantity:  1
+                quantity: 1
+
             }),
             
             // Adding headers to the request

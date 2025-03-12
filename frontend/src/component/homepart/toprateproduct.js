@@ -20,7 +20,6 @@ function Toprateproduct() {
         getAllProduct()
     }, [])
 
-    console.log(allproduct, "fasdfsad")
 
     return (
         <div className='top-product'>
@@ -39,7 +38,7 @@ function Toprateproduct() {
                             <img width={247} height={247} style={{ borderRadius: "15px" }} src={`http://localhost:8000${item.image}`} alt="asdfa" />
                             <div className='product-text'>
 
-                                <h4><Link href={`/pages/product/${item.slug}`}>{item.name}</Link></h4>
+                                <h4><Link href={`/pages/product/${item.slug}`} style={{ color: "red" }}>{item.name}</Link></h4>
                                 <p>demo text</p>
                                 <div className='star-sold'>
                                     <img src={item.img2} width={15} height={15} alt='star' />
