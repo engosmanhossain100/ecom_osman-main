@@ -3,8 +3,7 @@ import React from 'react'
 
 
 
-async function CartPage() {
-
+ function CartPage() {
 
   return (
     <div>

@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import HomeTopBar from '../homepart/hometopbar'
 import Container from '../container/Container'

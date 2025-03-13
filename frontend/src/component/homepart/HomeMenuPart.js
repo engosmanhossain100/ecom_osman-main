@@ -1,24 +1,42 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { MdMailOutline } from "react-icons/md";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import axios from 'axios';
 
-async function getData() {
-    let data = await fetch('http://localhost:8000/api/v1/product/allcart')
-        .then((res) =>
-            res.json()
-        )
+// async function getData() {
+//     let data = await fetch('http://localhost:8000/api/v1/product/allcart')
+//         .then((res) =>
+//             res.json()
+//         )
 
-    return data;
-}
+//     return data;
+// }
 
-async function HomeMenuBar() {
+// let data = await getData();
 
-    let data = await getData();
+ function HomeMenuBar() {
+
+    let [cat, setCat] = useState([]);
+
+    useEffect(() => {
+      function getAllcat() {
+          axios.get(`http://localhost:8000/api/v1/product/allcart`).then((data) => { 
+            console.log(data);
+                   
+           setCat(data.data)
+          })
+      }
+      getAllcat()
+  }, [])
+
+  console.log(cat);
+  
+  
 
     return (
         <div className='menubar'>
@@ -57,7 +75,7 @@ async function HomeMenuBar() {
             <div className='shopping-element'>
                 <div className='shopping-icon'>
                     <MdOutlineShoppingBag />
-                    <div className='number'><p>{data.length}</p></div>
+                    <div className='number'><p>{cat.length}</p></div>
                 </div>
                 <div className='shopping-icon'>
                     <MdMailOutline />
