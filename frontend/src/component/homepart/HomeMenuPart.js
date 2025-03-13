@@ -21,22 +21,17 @@ import axios from 'axios';
 
  function HomeMenuBar() {
 
-    let [cat, setCat] = useState([]);
+    let [home, setHome] = useState([]);
 
     useEffect(() => {
-      function getAllcat() {
-          axios.get(`http://localhost:8000/api/v1/product/allcart`).then((data) => { 
-            console.log(data);
-                   
-           setCat(data.data)
+      function getAllHome() {
+          axios.get(`http://localhost:8000/api/v1/product/allcart`).then((data) => {       
+            setHome(data.data)
           })
       }
-      getAllcat()
+      getAllHome()
   }, [])
 
-  console.log(cat);
-  
-  
 
     return (
         <div className='menubar'>
@@ -75,7 +70,7 @@ import axios from 'axios';
             <div className='shopping-element'>
                 <div className='shopping-icon'>
                     <MdOutlineShoppingBag />
-                    <div className='number'><p>{cat.length}</p></div>
+                    <div className='number'><p>{home.length}</p></div>
                 </div>
                 <div className='shopping-icon'>
                     <MdMailOutline />

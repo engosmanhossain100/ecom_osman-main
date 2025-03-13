@@ -1,10 +1,12 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import HeadName from '../headname/headname'
 import Headviewall from '../headviewall/headviewall'
 import './style.css'
 import Images from 'next/image'
 import { newArraivals } from './categoryData'
 import Image from 'next/image'
+import axios from 'axios'
 
 async function getData() {
     let data = await fetch('http://localhost:8000/api/v1/product/allpro')
@@ -15,9 +17,27 @@ async function getData() {
     return data;
   }
 
+
 async function NewArraivals() {
 
-    let data = await getData();
+    // let [arrival, setArrival] = useState();
+
+//     useEffect(() => {
+//       function getAllArrival() {
+//           axios.get(`http://localhost:8000/api/v1/product/allcart`).then((data) => {       
+//             setArrival(data.data[0].productId)
+
+//             console.log(data.data[0].productId);
+            
+//           })
+//       }
+//       getAllArrival()
+//   }, [])
+
+//   console.log(arrival);
+
+  let data = await getData();
+  
 
   return (
     <div className='arrivals-part'>
@@ -34,7 +54,7 @@ async function NewArraivals() {
                     <div className='items-list' key={i}>
 
                         <div className='items-img'>
-                            <Image src={`http://localhost:8000${item.image[0]}`} width={230} height={290} alt='newArraivals'/>
+                            <img src={`http://localhost:8000${item.image[0]}`} width={230} height={290} alt='newArraivals'/>
                             <div className='item-tag'>
                                 <p>{item.proType}</p>
                             </div>
@@ -44,7 +64,7 @@ async function NewArraivals() {
                             <h4>{item.name}</h4>
                             <h3>100$</h3>
                             <div className='rating'>
-                                <Image src={item.star} width={20} height={20} alt='star'/>
+                                <img src={item.star} width={20} height={20} alt='star'/>
                                 <p>10</p>
                             </div>
                         </div>
@@ -53,6 +73,7 @@ async function NewArraivals() {
                 ))
             }
         </div>
+      asd
     </div>
   )
 }

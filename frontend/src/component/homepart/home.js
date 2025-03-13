@@ -34,8 +34,8 @@ useEffect(()=>{
         
         <HomeTopBar />
         <Hero  />
-        {/* <Category /> */}
-        {/* <NewArraivals /> */}
+        <Category />
+        <NewArraivals />
         <FlashSale />
         {/* <Companyname /> */}
         {/* <Quality /> */}

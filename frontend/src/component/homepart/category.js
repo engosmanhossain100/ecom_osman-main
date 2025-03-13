@@ -1,33 +1,35 @@
+'use client'
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import HeadName from '../headname/headname'
 import Images from 'next/image'
 import axios from 'axios'
 
-// async function getData() {
-//   let data = await fetch('http://localhost:8000/api/v1/product/allcat')
-//   .then((res)=>
-//   res.json()
-//   )
+async function getData() {
+  let data = await fetch('http://localhost:8000/api/v1/product/allcat')
+  .then((res)=>
+  res.json()
+  )
 
-//   return data;
-// }
+  return data;
+}
 
 // let data = await getData();
 
-export default function Category() {
+async function Category() {
 
-  let [cat, setCat] = useState([]);
+  let [cat, setCat] = useState();
 
-  useEffect(() => {
-    function getAllcat() {
-        axios.get(`http://localhost:8000/api/v1/product/allcat`).then((data) => {         
-         setCat(data.data)
-        })
-    }
-    getAllcat()
-}, [])
-
+//   useEffect(() => {
+//     function getAllcat() {
+//         axios.get(`http://localhost:8000/api/v1/product/allcat`).then((data) => {         
+//          setCat(data.data)
+//         })
+//     }
+//     getAllcat()
+// }, [])
+ 
+ let data = await getData();
 
   return (
     <div className='category-part'>
@@ -36,7 +38,7 @@ export default function Category() {
       
       <div className='category-item'>
         {
-            cat.map((item, i)=>(
+            data.map((item, i)=>(
 
               item.status == "approve" && 
 
@@ -50,3 +52,5 @@ export default function Category() {
     </div>
   )
 }
+
+export default Category
