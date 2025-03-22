@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { RxCross2 } from "react-icons/rx";
 
+
 async function getData() {
     let data = await fetch('http://localhost:8000/api/v1/product/allcart')
     .then((res)=>
@@ -10,77 +11,86 @@ async function getData() {
 
     return data;
   }
-function Cartleft() {
 
-    const [count, setCount] = useState(0)
-    const [cartData, setCartData] = useState([])
-    const [update, setUpdate] = useState(true)
+function Cartleft({cartTotal, setCartTotal}) {
 
+    let [count, setCount] = useState([])
+    let [cartData, setCartData] = useState([])
+    let [update, setUpdate] = useState(true)
+    let [check, setCheck] = useState(false)
+   
+
+    useEffect(() => {
+        const total = cartData.reduce((acc,item)=>{
+            const itemCount = count.find(pitem=>pitem.id == item.productId._id)?.count ?? item.quantity
+            return acc + itemCount * item.productId.discount
+        },0)
+        setCartTotal(total)
+    },[cartData,count])
+
+
+    let handleUpdateCount = (id,quantity,type) => {
+        setCount(prevCount => {
+            let updatedCount = [...prevCount]
+            let itemIndex = updatedCount.findIndex((item)=>item.id === id)
+            if(itemIndex !== -1){
+                        updatedCount[itemIndex] = {
+                            ...updatedCount[itemIndex],
+                            count: type === "plus" ? updatedCount[itemIndex].count+1 : updatedCount[itemIndex].count-1
+                        }
+                }else{
+                    updatedCount.push({
+                        id:id,
+                        count:1
+                    })
+                }
+            return updatedCount
+        })
+      }
 
     const handleMinus = (id,quantity) => {
 
-          // POST request using fetch()
-          fetch(`http://localhost:8000/api/v1/product/cart?type=minus`, {
-            
-            // Adding method type
+        fetch(`http://localhost:8000/api/v1/product/cart?type=minus`, {
             method: "POST",
-            
-            // Adding body or contents to send
             body: JSON.stringify({
                 productId: id,
                 userId: "673b9a729b7650570f6feab7",
-            quantity:  1
             }),
-            
-            // Adding headers to the request
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
+            
         })
-        
-        // Adding headers to the request
+
         .then(response => response.json())
-
-        // Updating the cart count
-        .then(json => setCount(count > 0 ? count-1 : quantity-1))
+        .then(json => handleUpdateCount(id,quantity,"minus"))
+        
 
         
-        setCount(count - 1)
-        if (count == 0) {
-            setCount(0)
-        }
+        // setCount(count - 1)
+        // if (count == 0) {
+        //     setCount(0)
+        // }
     }
 
     const handlePlas = (id,quantity) => {
 
-                // POST request using fetch()
                 fetch(`http://localhost:8000/api/v1/product/cart?type=plus`, {
-            
-                    // Adding method type
                     method: "POST",
-                    
-                    // Adding body or contents to send
                     body: JSON.stringify({
                         productId: id,
                         userId: "673b9a729b7650570f6feab7",
-                    quantity:  1
                     }),
-                    
-                    // Adding headers to the request
                     headers: {
                         "Content-type": "application/json; charset=UTF-8"
                     }
                     
                 })
 
-                                    // Adding headers to the request
-                                    .then(response => response.json())
-
-                                    // Updating the cart count
-                                    .then(json => setCount(count > 0 ? count+1 : quantity+1))
-
-
-        // setCount(count + 1)
+                .then(response => response.json())
+                .then(json => handleUpdateCount(id,quantity,"plus"))
+                
+                                
     }
 
     let handleDelete = (id) => {
@@ -98,18 +108,18 @@ function Cartleft() {
     useEffect(() => {
         function allcart() {
 
-            const data = fetch('http://localhost:8000/api/v1/product/allcart').then((res) => {
-                    res.json().then((data) => {
+           fetch('http://localhost:8000/api/v1/product/allcart').then((res) => res.json())
+                      .then((data) => {
 
                         setCartData(data)
-                        
+
+                        const initialCount = data.map(item=>({id:item.productId._id, count:item.quantity}))
+                        setCount(initialCount)
                     })
                 }
-
-                )
-        }
         allcart()
     }, [update])
+
 
     return (
         <div className='cart-left-part'>
@@ -118,6 +128,8 @@ function Cartleft() {
                 <input type='checkbox' id='select' />
                 <label htmlFor='select'>Select All</label>
             </div>
+
+            <h1>Total: {cartTotal}</h1>
             
             {
                 cartData.map((item, i) => (
@@ -128,19 +140,23 @@ function Cartleft() {
                         </div>
 
                         <div className='details'>
+
                             <div className='cart-imgs'>
                                 <img src={`http://localhost:8000${item.productId.image[0]}`} width={130} height={130} alt='cart-img' />
                             </div>
+
                             <div className='item-name-price'>
                                 <h3>{item.productId.name}</h3>
                                 <p>{item.productId.discount}</p>
-                                <p>Total {count > 0 ? count*item.productId.discount : item.quantity*item.productId.discount }</p>
+                                <p>Total {(count.find(pitem=>pitem.id == item.productId._id)?.count ?? item.quantity) * item.productId.discount}</p>
                                 <div className='count'>
-                                    <div className='minus' onClick={()=>handleMinus(item.productId,item.quantity)}>-</div>
-                                    <div className='numbers'>{count ? count : item.quantity}</div>
-                                    <div className='plass' onClick={()=>handlePlas(item.productId,item.quantity)}>+</div>
+                                    <div className='minus' onClick={()=>handleMinus(item.productId._id,item.quantity)}>-</div>
+                                    <div className='numbers'>{count.find(pitem=>pitem.id == item.productId._id)?.count ?? item.quantity}</div>
+                                    <div className='plass' onClick={()=>handlePlas(item.productId._id,item.quantity)}>+</div>
                                 </div>
                             </div>
+                       
+                       
                         </div>
 
                         <div className='cross'>
