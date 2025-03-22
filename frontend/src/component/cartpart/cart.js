@@ -1,9 +1,13 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import './style.css'
 import Cartleft from './cartleft'
 import Cartright from './cartright'
 
 function Cart() {
+
+   let [cartTotal, setCartTotal] = useState(0)
+  
   return (
     <div className='cart-part'>
         <div className='breadcrumb'>
@@ -31,11 +35,11 @@ function Cart() {
         <div className='cart-details'>
 
           <div className='cart-left'>
-            <Cartleft/>
+            <Cartleft cartTotal={cartTotal} setCartTotal={setCartTotal}/>
           </div>
           
           <div className='cart-right'>
-            <Cartright/>
+            <Cartright cartTotal={cartTotal}/>
           </div>
 
         </div>

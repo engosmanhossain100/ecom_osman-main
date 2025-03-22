@@ -3,8 +3,6 @@
 const Button = ({item}) => {
 
     let handleClick = (id) => {
-
-
         
                 // POST request using fetch()
             fetch(`http://localhost:8000/api/v1/product/cart`, {
