@@ -1,16 +1,37 @@
-// 'use client'
+'use client'
 import React, { useState } from 'react'
 import './style.css'
 import { useFormik } from 'formik'
 import { buyerInfo } from '@/validationform/Yup'
 import { allprice, checkdata, totalprice } from './checkoutdata'
+import { useSearchParams } from 'next/navigation'
 
 function Checkout() {
-  const [isActive, setActive] = useState();
 
-  const handleClick = (e) => {
-    setActive(e.target.id)
+  // const SearchParams = useSearchParams();
+  // const total = SearchParams.get('total');
+  // console.log(SearchParams);
+  
+  // const [isActive, setActive] = useState();
+  // const handleClick = (e) => {
+  //   setActive(e.target.id)
+  // }
+
+  let handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:8000/api/v1/payment/createpayment",{
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formik.values),
+      ...formdata,
+      total: "7000",
+    });
+    const data = await response.json();
+
   }
+
 
   const initialState =
   {
@@ -29,14 +50,17 @@ function Checkout() {
     initialValues: initialState,
     validationSchema: buyerInfo,
     onSubmit: values => {
+      handleSubmit
       console.log(values);
-
     },
   });
 
   const { errors, touched } = formik;
+
   return (
+
     <div className='check-part'>
+
       <div className='breadcrumb'>
         <ul>
           <li className='brdcmb-list'><a href='/'>Home</a></li>
@@ -44,9 +68,11 @@ function Checkout() {
           <li className='brdcmb-list'>CheckOut</li>
         </ul>
       </div>
+
       <div className='check-head'>
         <h3>CheckOut</h3>
       </div>
+
       <div className='check-checkout'>
         <div className='carts'>
           <div className='one'>1</div>
@@ -59,6 +85,7 @@ function Checkout() {
       </div>
 
       <form onSubmit={formik.handleSubmit}>
+
         <div className='checkout-all-part'>
           <div className='check-left'>
             <div className='checkleft-box'>
@@ -120,13 +147,17 @@ function Checkout() {
               </div>
               {/* <button type='submit'> done </button> */}
             </div>
+
           </div>
+
           <div className='check-right'>
             <div className='checkout-right-part'>
               <div className='right-box'>
+                
                 <div className='heading'>
                   <h3>Your Order Summary</h3>
                 </div>
+
                 {
                   checkdata.map((item, i) => (
                     <div className='pro-rates' key={i}>
@@ -163,7 +194,7 @@ function Checkout() {
 
                 <div className='payment'>
                   <h3>Payment</h3>
-                  <div className='payment-mathod'>
+                  {/* <div className='payment-mathod'>
                     <div className={isActive === "1" ? "active" : "pay-card"} id={"1"} key={1} onClick={handleClick}>
                       Credit Card
                     </div>
@@ -173,7 +204,7 @@ function Checkout() {
                     <div className={isActive === "3" ? "active" : "pay-card"} id={"3"} key={3} onClick={handleClick}>
                       Paypal
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className='check-btns'>
@@ -187,11 +218,14 @@ function Checkout() {
                     <p>Back to Cart</p>
                   </a>
                 </div>
+
               </div>
             </div>
           </div>
+          
         </div>
       </form>
+
     </div>
   )
 }

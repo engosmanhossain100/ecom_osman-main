@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 import Accordion from 'react-bootstrap/Accordion';
 
@@ -31,9 +32,9 @@ function Cartright({cartTotal}) {
           <h3>${cartTotal}</h3>
         </div>
         <div className='checkout-btn'>
-          <a href='/pages/checkout'>
+          <Link href={`/pages/checkout?total=${cartTotal}`}>
             <button>Checkout</button>
-          </a>
+          </Link>
         </div>
         <div className='shopping'>
           <a href='/'>Continue Shopping</a>

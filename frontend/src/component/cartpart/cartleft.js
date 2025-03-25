@@ -1,16 +1,17 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { RxCross2 } from "react-icons/rx";
+import Link from 'next/link';
 
 
-async function getData() {
-    let data = await fetch('http://localhost:8000/api/v1/product/allcart')
-    .then((res)=>
-    res.json()
-    )
+// async function getData() {
+//     let data = await fetch('http://localhost:8000/api/v1/product/allcart')
+//     .then((res)=>
+//     res.json()
+//     )
 
-    return data;
-  }
+//     return data;
+//   }
 
 function Cartleft({cartTotal, setCartTotal}) {
 
@@ -18,8 +19,8 @@ function Cartleft({cartTotal, setCartTotal}) {
     let [cartData, setCartData] = useState([])
     let [update, setUpdate] = useState(true)
     let [check, setCheck] = useState(false)
-   
 
+    
     useEffect(() => {
         const total = cartData.reduce((acc,item)=>{
             const itemCount = count.find(pitem=>pitem.id == item.productId._id)?.count ?? item.quantity
@@ -28,8 +29,9 @@ function Cartleft({cartTotal, setCartTotal}) {
         setCartTotal(total)
     },[cartData,count])
 
-
+    
     let handleUpdateCount = (id,quantity,type) => {
+        
         setCount(prevCount => {
             let updatedCount = [...prevCount]
             let itemIndex = updatedCount.findIndex((item)=>item.id === id)
@@ -113,6 +115,9 @@ function Cartleft({cartTotal, setCartTotal}) {
 
                         setCartData(data)
 
+                        console.log(data);
+                        
+
                         const initialCount = data.map(item=>({id:item.productId._id, count:item.quantity}))
                         setCount(initialCount)
                     })
@@ -129,7 +134,8 @@ function Cartleft({cartTotal, setCartTotal}) {
                 <label htmlFor='select'>Select All</label>
             </div>
 
-            <h1>Total: {cartTotal}</h1>
+            <h1>All Total: {cartTotal}$</h1>
+            
             
             {
                 cartData.map((item, i) => (
@@ -147,8 +153,8 @@ function Cartleft({cartTotal, setCartTotal}) {
 
                             <div className='item-name-price'>
                                 <h3>{item.productId.name}</h3>
-                                <p>{item.productId.discount}</p>
-                                <p>Total {(count.find(pitem=>pitem.id == item.productId._id)?.count ?? item.quantity) * item.productId.discount}</p>
+                                <p>discount Price: {item.productId.discount}$</p>
+                                <p>Total Price: {(count.find(pitem=>pitem.id == item.productId._id)?.count ?? item.quantity) * item.productId.discount}$</p>
                                 <div className='count'>
                                     <div className='minus' onClick={()=>handleMinus(item.productId._id,item.quantity)}>-</div>
                                     <div className='numbers'>{count.find(pitem=>pitem.id == item.productId._id)?.count ?? item.quantity}</div>
