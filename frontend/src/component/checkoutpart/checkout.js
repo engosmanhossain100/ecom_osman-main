@@ -1,37 +1,52 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useFormik } from 'formik'
-import { buyerInfo } from '@/validationform/Yup'
 import { allprice, checkdata, totalprice } from './checkoutdata'
 import { useSearchParams } from 'next/navigation'
+import { buyerInfo } from '@/validationform/Yup'
+
 
 function Checkout() {
 
-  // const SearchParams = useSearchParams();
-  // const total = SearchParams.get('total');
-  // console.log(SearchParams);
+  const [cartData, setCartData] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
+  let [count, setCount] = useState([])
+  const [shiping, setShiping] = useState(150)
+  const [tax, setTax] = useState(50)
+
+  const SearchParams = useSearchParams();
+
+  const total = (SearchParams.get('total')) || 0;
   
   // const [isActive, setActive] = useState();
   // const handleClick = (e) => {
   //   setActive(e.target.id)
   // }
 
-  let handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetch("http://localhost:8000/api/v1/payment/createpayment",{
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formik.values),
-      ...formdata,
-      total: "7000",
-    });
-    const data = await response.json();
 
-  }
+      useEffect(() => {
+          function allcart() {
+  
+             fetch('http://localhost:8000/api/v1/product/allcart').then((res) => res.json())
+                        .then((data) => {
+  
+                          setCartData(data)
+  
+                          console.log(data);
+                          
+                      })
+                  }
+          allcart()
+      }, [])
 
+          useEffect(() => {
+              const total = cartData.reduce((acc,item)=>{
+                  const itemCount = count.find(pitem=>pitem.id == item.productId._id)?.count ?? item.quantity
+                  return acc + itemCount * item.productId.discount
+              },0)
+              setCartTotal(total)
+          },[cartData,count])
 
   const initialState =
   {
@@ -46,12 +61,25 @@ function Checkout() {
     comment: ""
   }
 
+  
+  let handleSubmit = (values) => {
+    fetch("http://localhost:8000/api/v1/payment/createpayment", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...values, total }), // Use 'values' instead of 'formData'
+    })
+    .then(response => response.json())
+    .then(data =>window.location.href = `${data.payment_url}`)
+    .catch(error => console.error('Error:', error));
+  };
+
   const formik = useFormik({
     initialValues: initialState,
     validationSchema: buyerInfo,
-    onSubmit: values => {
-      handleSubmit
-      console.log(values);
+    onSubmit: (values) => {
+      handleSubmit(values);
     },
   });
 
@@ -159,37 +187,30 @@ function Checkout() {
                 </div>
 
                 {
-                  checkdata.map((item, i) => (
+                  cartData.map((item, i) => (
                     <div className='pro-rates' key={i}>
                       <div className='pro-type'>
-                        <p>{item.proquantity}</p>
-                        <p>{item.proname}</p>
+                        <p>{item.quantity}x</p>
+                        <p>{item.productId.name}</p>
                       </div>
-                      <p>{item.proprice}</p>
+                      <p>{item.productId.discount * item.quantity}</p>
                     </div>
                   ))
                 }
 
                 <div className='all-amount'>
-                  {
-                    allprice.map((item, i) => (
-                      <div className='pro-rates' key={i}>
-                        <p>{item.subproname}</p>
-                        <p>{item.subprice}</p>
-                      </div>
-                    ))
-                  }
+                   <div className='pro-rates'>
+                      <p>Subprice {cartTotal}</p>
+                      <p>Shiping : 10</p>
+                      <p>Tax :10</p>
+                   </div>
                 </div>
 
-                <div className='total-amount'>
-                  {
-                    totalprice.map((item, i) => (
-                      <div className='pro-rates' key={i}>
-                        <h3>Total</h3>
-                        <p className='total-price'>{item.totalprice}</p>
-                      </div>
-                    ))
-                  }
+                <div className='total-amount'>            
+                 <div className='pro-rates'>
+                 <p>total</p>
+                 <p className='total-price'>{cartTotal-shiping-tax}</p>
+                 </div>
                 </div>
 
                 <div className='payment'>

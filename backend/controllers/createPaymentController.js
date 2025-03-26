@@ -3,13 +3,13 @@ const url = "https://sandbox.aamarpay.com/jsonpost.php";
 
 async function createpayment (req, res) {
 
-    const data = {
+    const payload = {
         store_id: "aamarpaytest",
         tran_id: new Date().getMilliseconds(),
         success_url: "http://www.merchantdomain.com/successpage.html",
         fail_url: "http://www.merchantdomain.com/failedpage.html",
         cancel_url: "http://www.merchantdomain.com/cancelpage.html",
-        amount: "10.0",
+        amount: "10000.0",
         currency: "BDT",
         signature_key: "dbb74894e82415a2f7ff0ec3a97e4183",
         desc: "Merchant Registration Payment",
@@ -24,20 +24,20 @@ async function createpayment (req, res) {
         cus_phone: "+8801704",
         type: "json"
     };
+
+    const headers = {
+        'Content-Type': 'application/json'  
+    }
     
-    axios.post('https://sandbox.aamarpay.com/jsonpost.php', data, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+    axios.post(url, payload, {headers})
     .then(response => {
         console.log(response.data);
+        res.json(response.data);
     })
     .catch(error => {
         console.error('Error:', error);
     });
      
-
 }
 
 module.exports = createpayment

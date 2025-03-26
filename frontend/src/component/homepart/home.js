@@ -36,7 +36,7 @@ useEffect(()=>{
         <Hero  />
         <Category />
         <NewArraivals />
-        <FlashSale time={time} />
+        {/* <FlashSale time={time} /> */}
         <Companyname />
         <Quality />
         <Collection />

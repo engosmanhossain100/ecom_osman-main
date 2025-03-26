@@ -22,7 +22,7 @@ function Cartleft({cartTotal, setCartTotal}) {
 
     
     useEffect(() => {
-        const total = cartData.reduce((acc,item)=>{
+        const total = cartData.reduce((acc,item)=>{ 
             const itemCount = count.find(pitem=>pitem.id == item.productId._id)?.count ?? item.quantity
             return acc + itemCount * item.productId.discount
         },0)
@@ -115,9 +115,8 @@ function Cartleft({cartTotal, setCartTotal}) {
 
                         setCartData(data)
 
-                        console.log(data);
+                        // console.log(data);
                         
-
                         const initialCount = data.map(item=>({id:item.productId._id, count:item.quantity}))
                         setCount(initialCount)
                     })
