@@ -23,7 +23,7 @@ let cartController = async (req, res) => {
                 }
             }
     
-            res.send({success : "Cart updated Successfuly"})
+            res.send({success : "Cart updated Successfully"})
     
         } else { 
             await Cart.findByIdAndUpdate({_id:existingCart._id},{quantity: existingCart.quantity+1})
