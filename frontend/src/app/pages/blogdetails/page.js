@@ -1,15 +1,13 @@
+import React, { createContext } from 'react';
+import BlogDetails from '@/component/blogdetailspart';
 
-import React from 'react'
-import BlogDetails from '@/component/blogdetailspart'
+export const MyContext = createContext();
 
-
-
-function Blogdetails() {
+export default function Page() {
+  const someValue = "Shared value";
   return (
-    <div>
-        <BlogDetails/>
-    </div>
-  )
+    <MyContext.Provider value={someValue}>
+      <BlogDetails />
+    </MyContext.Provider>
+  );
 }
-
-export default Blogdetails
