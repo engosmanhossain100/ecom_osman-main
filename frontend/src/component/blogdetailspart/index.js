@@ -4,6 +4,8 @@ import HomeTopBar from '../homepart/hometopbar'
 import FooterElements from '../homepart/footerelements'
 import Blogdtsprt from './blogdtsprt'
 import './style.css'
+import { leavecomment } from '@/validationform/Yup'
+
 
 function BlogDetails() {
   return (

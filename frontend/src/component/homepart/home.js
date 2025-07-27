@@ -14,6 +14,7 @@ import Quality from './quality'
 import Collection from './collection'
 
 function Homepart() {
+  
   const [time, setTime] = useState();
 
   useEffect(() => {

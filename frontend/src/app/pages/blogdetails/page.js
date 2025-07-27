@@ -1,5 +1,8 @@
-import BlogDetails from '@/component/blogdetailspart'
+
 import React from 'react'
+import BlogDetails from '@/component/blogdetailspart'
+
+
 
 function Blogdetails() {
   return (

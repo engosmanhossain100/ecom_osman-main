@@ -5,6 +5,8 @@ import { useFormik } from 'formik'
 import { allprice, checkdata, totalprice } from './checkoutdata'
 import { useSearchParams } from 'next/navigation'
 import { buyerInfo } from '@/validationform/Yup'
+import { leavecomment } from '@/validationform/Yup'
+
 
 
 function Checkout() {
