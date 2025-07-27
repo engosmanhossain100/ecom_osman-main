@@ -4,13 +4,13 @@ const emailCheck = async (req, res, next) => {
 
     const { email } = req.body;
 
-    const user = await userModel.findOne({ email: email });
+    const user = await User.findOne({ email: email });
 
     if (!email) {
       return res.status(400).send("Valid Email Required");
     }
 
-    if (user.emailVerified) {
+    if (user.emailVerified == true) {
       next();
     } else {
       return res.status(401).send("Please Verify your email");

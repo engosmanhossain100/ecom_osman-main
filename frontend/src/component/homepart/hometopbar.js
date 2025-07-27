@@ -13,12 +13,14 @@ function HomeTopBar() {
     return (
         <div>
             <div className='home-top'>
+
                 <div className='top-icon'>
                     <FaInstagram />
                     <FaFacebookSquare />
                     <FaTwitterSquare />
                     <IoLogoLinkedin />
                 </div>
+
                 <div className='top-right'>
                     <div className='right-element'>
                         <FiPhone className='right-icon' />
@@ -33,6 +35,7 @@ function HomeTopBar() {
                         <p className='right-text'>Account</p>
                     </div>
                 </div>
+                
             </div>
 
             <div className='mt-8 mb-16'>

@@ -1,5 +1,5 @@
- "use client"
- import axios from 'axios'
+"use client"
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Container from '../container/Container'
 import FooterElements from './footerelements'
@@ -13,36 +13,34 @@ import Companyname from './companyname'
 import Quality from './quality'
 import Collection from './collection'
 
- function Homepart() {
- const [time, setTime] = useState();
+function Homepart() {
+  const [time, setTime] = useState();
 
-useEffect(()=>{
-  function getData (){
-    axios.get("http://localhost:8000/api/v1/product/flashsale").then((data)=>{
-      setTime(data.data.time)
-    })
-  }
-  getData()
-},[])
+  useEffect(() => {
+    function getData() {
+      axios.get("http://localhost:8000/api/v1/product/flashsale").then((data) => {
+        setTime(data.data.time)
+      })
+    }
+    getData()
+  }, [])
 
 
-  
   return (
     <div>
       <Container>
-        
-        
+
         <HomeTopBar />
-        <Hero  />
+        <Hero />
         <Category />
         <NewArraivals />
-        {/* <FlashSale time={time} /> */}
+        <FlashSale time={time} />
         <Companyname />
         <Quality />
         <Collection />
         {/* <FlashSale time={data[0]?.time}/>  */}
-        <Toprateproduct/>
-
+        <Toprateproduct />
+        
       </Container>
       <FooterElements />
     </div>

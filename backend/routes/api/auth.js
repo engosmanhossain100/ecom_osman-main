@@ -8,6 +8,7 @@ const forgotpassController = require('../../controllers/forgotpassController');
 const linkvarificationController = require('../../controllers/linkvarificationController');
 const newpassController = require('../../controllers/newpassController');
 const resentverifationController = require('../../controllers/resentverifationController');
+const emailCheck = require('../../middleware/emailCheck');
 
 
 route.post('/registration', secureApi, registrationController);

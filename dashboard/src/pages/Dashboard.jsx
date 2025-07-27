@@ -11,16 +11,11 @@ const Dashboard = () => {
 
   function getItem(label, key, icon, children, type) {
     return {
-      key,
-      icon,
-      children,
-      label,
-      type,
+      key,icon,children,label,type,
     };
   }
 
   let userInfo = useSelector((state) => state.user.value)
-
 
   const items = [
     userInfo.role != "user" &&  
@@ -65,8 +60,9 @@ const Dashboard = () => {
     navigate(e.key);
   };
 
+  console.log(userInfo.role);
   
-  // console.log(userInfo);
+
 
   return (
     <>

@@ -7,6 +7,7 @@ const paymentroutes = require('./paymentroutes')
 
 
 route.use('/auth', auth)
+
 route.use('/product', productroutes)
 route.use('/payment', paymentroutes )
 

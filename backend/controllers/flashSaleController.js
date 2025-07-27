@@ -2,12 +2,7 @@ const FlashSale = require("../model/flashSaleModel");
 
 async function flashSaleController(req, res) {
 
-
     const { ftime, productid } = req.body;
-
-
-
-    // let arr = idlist.split(",");
 
     let existing = await FlashSale.find()
 
@@ -19,8 +14,7 @@ async function flashSaleController(req, res) {
         let time = new FlashSale({
             time: ftime,
             productId: productid
-        })
-        time.save()
+        }).save()
 
         res.send({ success: "flashsale Created Successfully" })
     }

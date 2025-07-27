@@ -3,6 +3,7 @@ const { Schema } = mongoose
 
 const flashSaleSchema = new Schema({
     time: String,
+    
     productId: [
         {
             type: Schema.Types.ObjectId,

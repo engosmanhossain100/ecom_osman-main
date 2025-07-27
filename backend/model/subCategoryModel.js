@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const categoryModel = require("./categoryModel")
 const {Schema} = mongoose
 
 const subCategorySchema = new Schema({
@@ -14,7 +13,7 @@ const subCategorySchema = new Schema({
 
     categoryId:{
         type: Schema.Types.ObjectId,
-        ref:"Category" 
+        ref:"Category" // Reference to the Category model
     }
 
 })

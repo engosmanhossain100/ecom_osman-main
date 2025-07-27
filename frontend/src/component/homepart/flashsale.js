@@ -7,10 +7,8 @@ import './style.css'
 
 function FlashSale({ time }) {
 
-    let [endTime, setEndTime] = useState(time)
-
-    let [flashsaleProduct, setFlashsaleProduct] = useState([])
-
+    let [endTime, setEndTime] = useState(time);
+    let [flashsaleProduct, setFlashsaleProduct] = useState([]);
 
     useEffect(() => {
         function getReview() {
@@ -18,32 +16,24 @@ function FlashSale({ time }) {
 
                 setEndTime(data.data.time)
                 setFlashsaleProduct(data.data.productId)
-
+                
             })
         }
         getReview()
     }, [])
 
 
-
     const stratTime = Date.now() / 1000;
     const endTimeStamp = new Date(endTime).getTime() / 1000
-
-
     const remainingTime = endTimeStamp - stratTime
-  
     const minuteSeconds = 60;
     const hourSeconds = 3600;
     const daySeconds = 86400;
-
     const timerProps = {
         isPlaying: true,
         size: 80,
         strokeWidth: 4
     };
-
-
-
     const renderTime = (dimension, time) => {
         return (
             <div className="time-wrapper">
@@ -57,7 +47,6 @@ function FlashSale({ time }) {
     const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
     const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
     const getTimeDays = (time) => (time / daySeconds) | 0;
-
     const days = Math.ceil(remainingTime / daySeconds);
     const daysDuration = days * daySeconds;
 

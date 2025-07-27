@@ -9,7 +9,9 @@ function Hero() {
     return (
         <div className='hero-part'>
             <div className='banner-item'>
+
                 <div className='first-banner'>
+
                     <Carousel fade className='carousel'>
                         <Carousel.Item className='banner-carousel'>
                             <img src="/Frame 10.png" width={1073} height={644} alt="..."/>
@@ -24,25 +26,32 @@ function Hero() {
 
                         </Carousel.Item>
                     </Carousel>
+
                     <div className='overlay'>
                         <div className='overlay-text'>
                             <h3>Better Devices for Better Life</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. </p>
                         </div>
                     </div>
+                    
                 </div>
+
                 <div className='second-banner'>
+
                     <div className='pc-gaming'>
                         <div className='pc-text'>
                             <p>Pc gaming collection</p>
                         </div>
                     </div>
+
                     <div className='camera'>
                         <div className='camera-text'>
                             <p>Camera collection</p>
                         </div>
                     </div>
+
                 </div>
+
             </div>
         </div>
     )

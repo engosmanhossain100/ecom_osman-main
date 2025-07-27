@@ -16,6 +16,8 @@ function Toprateproduct() {
         function getAllProduct() {
             axios.get("http://localhost:8000/api/v1/product/allpro").then((response) => {
                 setAllProduct(response.data)
+                console.log(response);
+                
             })
         }
         getAllProduct()
@@ -23,10 +25,12 @@ function Toprateproduct() {
 
     return (
         <div className='top-product'>
+
             <Headviewall>
                 <HeadName>Top Rated Product</HeadName>
                 <p className='prdct-view'>View All</p>
             </Headviewall>
+
             <div className='all-prdct'>
                 {
                     allproduct.map((item, i) => (
@@ -36,13 +40,20 @@ function Toprateproduct() {
                         <div className='prdct-item' key={i}>
 
                             <img width={247} height={247} style={{ borderRadius: "15px" }} src={`http://localhost:8000${item.image}`} alt="asdfa" />
+                            
                             <div className='product-text'>
 
                                 <h4><Link href={`/pages/product/${item.slug}`}>{item.name}</Link></h4>
                                 <p>demo text</p>
                                 <div className='star-sold'>
                                     <img src={item.img2} width={15} height={15} alt='star' />
-                                    <span>{item.discount ? <><p><del style={{ color: "red" }}>{item.regularprice}</del></p><p>{item.regularprice - item.discount}</p></> : (item.regularprice)}
+                                    <span>
+                                        {item.discount 
+                                        ? 
+                                        <><p><del style={{ color: "red" }}>{item.regularprice}</del></p><p>
+                                        {item.regularprice - item.discount}</p></> 
+                                        : 
+                                        (item.regularprice)}
                                     </span>
                                 </div>
 
@@ -52,6 +63,7 @@ function Toprateproduct() {
                                 </div>
 
                             </div>
+                            
                         </div>
                     ))
                 }

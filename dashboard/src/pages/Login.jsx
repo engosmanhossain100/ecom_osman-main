@@ -16,7 +16,7 @@ const Login = () => {
     let navigate = useNavigate()
 
     const dispatch = useDispatch();
-  
+
     const onFinish = async (values) => {
 
       try {
@@ -49,9 +49,9 @@ const Login = () => {
           progress: undefined,
           theme: "light",
           });
-          // setTimeout(() => {
-          //   navigate("/login")
-          // }, 5000);
+          setTimeout(() => {
+            navigate("/dashboard")
+          }, 4000);
         setError('')
       } catch (error) {
         setLoading(false);
@@ -74,6 +74,7 @@ const Login = () => {
     const onFinishFailed = (errorInfo) => {
       console.log(errorInfo, "login failed");
     };
+
 
   return (
     <>
@@ -128,7 +129,7 @@ const Login = () => {
       <Input.Password />
     </Form.Item> 
 
-    {/* <Form.Item
+    <Form.Item
       name="remember"
       valuePropName="checked"
       wrapperCol={{
@@ -137,7 +138,7 @@ const Login = () => {
       }}
     >
       <Checkbox>Remember me</Checkbox>
-    </Form.Item>  */}
+    </Form.Item> 
 
      <Form.Item
       wrapperCol={{
@@ -149,10 +150,11 @@ const Login = () => {
         Submit
       </Button>
     </Form.Item>
+    
        </Form> 
 
     </>
   )
 }
 
-export default Login
+export default Login;

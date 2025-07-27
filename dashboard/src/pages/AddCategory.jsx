@@ -8,9 +8,6 @@ import { useSelector } from 'react-redux';
 const AddCategory = () => {
 
   let userInfo = useSelector((state) => state.user.value)
-
-  console.log(userInfo)
-
   let [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState('');
   let [error, setError] = useState("")
@@ -19,7 +16,6 @@ const AddCategory = () => {
   const onFinish = async (values) => {
 
     try {
-
       setLoading(true);
       let data = await axios.post("http://localhost:8000/api/v1/product/creatcategory",
         {

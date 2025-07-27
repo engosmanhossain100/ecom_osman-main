@@ -14,7 +14,5 @@ app.use('/', router);
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-
 const port = process.env.PORT || 8000
-
 app.listen(port)

@@ -36,7 +36,6 @@ const Forgotpass = () => {
             navigate("/login")
           }, 5000);
         setError('')
-        console.log(data);
           } catch (error) { 
             setLoading(false);
             setSuccess('')

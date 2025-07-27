@@ -10,6 +10,7 @@ function Cart() {
   
   return (
     <div className='cart-part'>
+
         <div className='breadcrumb'>
             <ul>
                 <li className='brdcmb-list'><a href='/'>Home</a></li>
@@ -22,14 +23,17 @@ function Cart() {
         </div>
 
         <div className='cart-checkout'>
+
           <div className='carts'>
             <div className='one'>1</div>
             <p>My Cart</p>
           </div>
+
           <div className='checkout'>
             <div className='two'>2</div>
             <p>checkout</p>
           </div>
+          
         </div>
 
         <div className='cart-details'>
@@ -43,6 +47,7 @@ function Cart() {
           </div>
 
         </div>
+
     </div>
   )
 }

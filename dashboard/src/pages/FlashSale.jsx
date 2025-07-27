@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 
 const FlashSale = () => {
 
-
     let [date, setDate] = useState("")
     let [time, setTime] = useState("")
     let [yearname, setYearname] = useState({
@@ -22,7 +21,6 @@ const FlashSale = () => {
         "11": "November",
         "12": "December",
     })
-
     let handleDateChange = (e) => {
         let arr = e.target.value
         let year = arr.split("-")[0]
@@ -31,7 +29,6 @@ const FlashSale = () => {
 
         setDate(`${yearname[month]} ${date}, ${year}`)
     }
-
     let handleTimeChange = (e) => {
         setTime(e.target.value)
     };
@@ -43,54 +40,41 @@ const FlashSale = () => {
     const handleChange = (value) => {
         setIdList(value)
     };
-
     const handleSizeChange = (e) => {
         setSize(e.target.value);
     };
 
     useEffect(() => {
         async function pro() {
-
             let data = await axios.get("http://localhost:8000/api/v1/product/allpro")
-
             let arr = [];
-
             data.data.map(item => {
                 arr.push({
                     value: item._id,
                     label: item.name,
                 })
             })
-
             setOptions(arr)
-
         }
         pro();
     }, [])
 
     let handleSubmit = async () => {
-
-    
         axios.post('http://localhost:8000/api/v1/product/flashsale', {
-            ftime: date + " " + time,
-            productid: idlist
+            ftime : date + " " + time,
+            productid : idlist
         }).then((data) => {
             console.log(data)
         }).catch((err) => {
             console.log(err)
-        })
-
-
+        })  
     }
-
 
     return (
         <>
             <input onChange={handleDateChange} type="date" />
             <input onChange={handleTimeChange} type="time" />
             <button onClick={handleSubmit} type='submit'>Submit</button>
-
-
 
             <Select
                 mode="multiple"

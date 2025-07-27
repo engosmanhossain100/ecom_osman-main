@@ -21,32 +21,33 @@ export default function Category() {
 
   useEffect(() => {
     function getAllcat() {
-        axios.get(`http://localhost:8000/api/v1/product/allcat`).then((data) => {         
-         setCat(data.data)
-        })
+      axios.get(`http://localhost:8000/api/v1/product/allcat`).then((data) => {
+        setCat(data.data)
+      })
     }
     getAllcat()
-}, [])
-
+  }, [])
 
   return (
+
     <div className='category-part'>
 
       <HeadName>Category</HeadName>
-      
+
       <div className='category-item'>
         {
-            cat.map((item, i)=>(
+          cat.map((item, i) => (
 
-              item.status == "approve" && 
+            item.status == "approve" &&
 
-                <div className='items' key={i}>
-                    <img src={`http://localhost:8000${item.image}`} width={80} height={80} alt='icon_img'/>
-                    <p>{item.name}</p>
-                </div>
-            ))
+            <div className='items' key={i}>
+              <img src={`http://localhost:8000${item.image}`} width={80} height={80} alt='icon_img' />
+              <p>{item.name}</p>
+            </div>
+          ))
         }
       </div>
     </div>
+
   )
 }

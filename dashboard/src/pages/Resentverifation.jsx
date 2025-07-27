@@ -5,8 +5,8 @@ import axios from 'axios';
 
 const Resentverifation = () => {
 
-const [email, setEmail] = useState("")
-const [isModalOpen, setIsModalOpen] = useState(false);
+  const [email, setEmail] = useState("")
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -18,9 +18,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   const handleSend = async () => {
     setIsModalOpen(false);
     let data = await axios.post('http://localhost:8000/api/v1/auth/resentverifation',
-    {
-        email:email,
-    },
+      {
+        email: email,
+      },
     )
     console.log(data);
   };
@@ -29,13 +29,13 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
-    <Button type="primary" onClick={showModal}>Open Modal</Button>
+      <Button type="primary" onClick={showModal}> Resent Verifation</Button>
 
-    <Modal title="Reset Your Verifaction Link" open={isModalOpen} onCancel={handleCancel} onOk={handleSend} okText="Submit" >
-      <Input type="email" placeholder='Enter Your Email' className='border-[2px] w-full' onChange={e => setEmail(e.target.value)}/>
-    </Modal>
-    
-  </>
+      <Modal title="Reset Your Verifaction Link" open={isModalOpen} onCancel={handleCancel} onOk={handleSend} okText="Submit" >
+        <Input type="email" placeholder='Enter Your Email' className='border-[2px] w-full' onChange={e => setEmail(e.target.value)} />
+      </Modal>
+
+    </>
   )
 }
 

@@ -18,22 +18,22 @@ import axios from 'axios';
 // }
 // let data = await getData();
 
- function HomeMenuBar() {
+function HomeMenuBar() {
 
     let [home, setHome] = useState([]);
 
     useEffect(() => {
-      function getAllcat() {
-          axios.get(`http://localhost:8000/api/v1/product/allcart`).then((data) => {
-           
-           setHome(data.data)
-          })
-      }
-      getAllcat()
-  }, [])
+        function getAllcat() {
+            axios.get(`http://localhost:8000/api/v1/product/allcart`).then((data) => {
+                setHome(data.data)
+            })
+        }
+        getAllcat()
+    }, [])
 
     return (
         <div className='menubar'>
+
             <div className='prjt-name'>
                 <h2>Tronix</h2>
             </div>
@@ -75,6 +75,7 @@ import axios from 'axios';
                     <MdMailOutline />
                 </div>
             </div>
+
         </div>
     )
 }

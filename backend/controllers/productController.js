@@ -4,8 +4,8 @@ let productController = async (req, res) => {
 
     const { name , discription, slug, catId, proType, regularprice, discount} = req.body;
 
-        let arr = []
 
+        let arr = []
         req.files.map(item=>{
             arr.push(`/uploads/${item.filename}`)
         })
@@ -19,11 +19,8 @@ let productController = async (req, res) => {
             proType : proType,
             regularprice : regularprice,
             discount : discount
-        });
+        }).save()
 
-
-        
-        product.save()
         res.send({success : "Product created successfully"})
 
 };
